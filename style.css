@@ -1,0 +1,484 @@
+/* ==========================================================================
+   1. VARIÁVEIS DE AMBIENTE (BOAS PRÁTICAS DE FRONT-END)
+   ========================================================================== */
+:root {
+  --bg-principal: #f4f6f9;
+  --bg-card: #ffffff;
+  --texto-escuro: #1e293b;
+  --texto-suave: #64748b;
+  --cor-primaria: #0f172a; /* Azul Escuro / Grafite (Sóbrio) */
+  --cor-secundaria: #0284c7; /* Azul Tech (Destaques e links) */
+  --cor-sucesso: #10b981; /* Verde (Ações positivas e tags) */
+  --borda-suave: #e2e8f0;
+  --sombra-card:
+    0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --transicao: all 0.3s ease;
+}
+
+/* ==========================================================================
+   2. RESET UNIVERSAL E CONFIGURAÇÃO BASE
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Garante que padding não altere o tamanho final do elemento */
+}
+
+body {
+  font-family: "Inter", sans-serif; /* Fonte limpa e legível */
+  background-color: var(--bg-principal);
+  color: var(--texto-escuro);
+  line-height: 1.6;
+  padding-bottom: 60px;
+}
+
+/* ==========================================================================
+   3. CABEÇALHO (HEADER) - DESIGN SOFISTICADO
+   ========================================================================== */
+.main-header {
+  background: linear-gradient(135deg, var(--cor-primaria) 0%, #1e293b 100%);
+  color: #ffffff;
+  padding: 3rem 1rem;
+  text-align: center;
+  border-bottom: 4px solid var(--cor-secundaria);
+}
+
+.header-content {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.profile-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffffff;
+  box-shadow: var(--sombra-card);
+  background-color: var(
+    --texto-suave
+  ); /* Fallback caso esteja sem foto temporariamente */
+}
+
+.profile-intro h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.05em;
+}
+
+.profile-intro h2 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+
+.badge-location {
+  background-color: rgba(2, 132, 199, 0.2);
+  color: #38bdf8;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   4. LAYOUT PRINCIPAL E ESTRUTURA DOS CARDS
+   ========================================================================== */
+.portfolio-container {
+  max-width: 850px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Espaçamento idêntico entre os blocos */
+}
+
+.card-section {
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: var(--sombra-card);
+  border: 1px solid var(--borda-suave);
+}
+
+.card-section h3 {
+  font-size: 1.3rem;
+  color: var(--cor-primaria);
+  margin-bottom: 1.2rem;
+  border-bottom: 2px solid var(--borda-suave);
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.section-icon {
+  margin-right: 0.75rem;
+}
+
+.card-section p {
+  color: var(--texto-suave);
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+.card-section p strong {
+  color: var(--texto-escuro);
+}
+
+/* ==========================================================================
+   5. SEÇÃO SELETORA: FILTROS E COMPETÊNCIAS (GANCHO JAVASCRIPT)
+   ========================================================================== */
+.instruction-text {
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-bottom: 0.8rem !important;
+}
+
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-filter {
+  background-color: var(--bg-principal);
+  border: 1px solid var(--borda-suave);
+  color: var(--texto-suave);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: var(--transicao);
+}
+
+.btn-filter:hover {
+  background-color: #cbd5e1;
+  color: var(--texto-escuro);
+}
+
+.btn-filter.active {
+  background-color: var(--cor-secundaria);
+  color: #ffffff;
+  border-color: var(--cor-secundaria);
+}
+
+.skills-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.skill-pill {
+  background-color: var(--bg-principal);
+  color: var(--texto-escuro);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-left: 3px solid var(--cor-secundaria);
+  transition: var(--transicao);
+}
+
+/* Animação que o JavaScript usará para ocultar e exibir as tags */
+.skill-pill.hidden {
+  display: none;
+}
+
+/* ==========================================================================
+   6. LINHA DO TEMPO (FORMAÇÃO ACADÉMICA)
+   ========================================================================== */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  border-left: 2px solid var(--borda-suave);
+  padding-left: 1.2rem;
+  margin-left: 0.5rem;
+}
+
+.timeline-card {
+  position: relative;
+}
+
+/* A bolinha da linha do tempo */
+.timeline-card::before {
+  content: "";
+  position: absolute;
+  left: -25px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--cor-secundaria);
+}
+
+.timeline-card h4 {
+  font-size: 1.1rem;
+  color: var(--texto-escuro);
+}
+
+.timeline-date {
+  display: inline-block;
+  font-size: 0.8rem;
+  background-color: #f1f5f9;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  color: var(--cor-secundaria);
+  font-weight: 600;
+  margin: 0.25rem 0;
+}
+
+.timeline-institution {
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+}
+
+/* ==========================================================================
+   7. PROJETOS EM DESTAQUE
+   ========================================================================== */
+.projects-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.project-item {
+  background-color: var(--bg-principal);
+  padding: 1.25rem;
+  border-radius: 8px;
+  border: 1px solid var(--borda-suave);
+  transition: var(--transicao);
+}
+
+/* Efeito Hover sutil - Demonstra capricho no acabamento */
+.project-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--cor-secundaria);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05);
+}
+
+.project-item h4 {
+  color: var(--cor-primaria);
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   8. FORMULÁRIO DE CONTATO (ESTRUTURA DE DADOS COMPATÍVEL COM PHP)
+   ========================================================================== */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input-container label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--texto-escuro);
+}
+
+.input-container input,
+.input-container textarea {
+  font-family: inherit;
+  padding: 0.75rem;
+  border: 1px solid var(--borda-suave);
+  border-radius: 6px;
+  background-color: var(--bg-principal);
+  color: var(--texto-escuro);
+  font-size: 0.95rem;
+  transition: var(--transicao);
+}
+
+/* Estado de Foco - Acessibilidade para navegação via teclado */
+.input-container input:focus,
+.input-container textarea:focus {
+  outline: none;
+  border-color: var(--cor-secundaria);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.btn-send {
+  background-color: var(--cor-secundaria);
+  color: #ffffff;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transicao);
+}
+
+.btn-send:hover {
+  background-color: #0369a1;
+}
+
+/* Painel de Feedback injetado pelo JS ou PHP */
+#feedback-painel {
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+#feedback-painel.sucesso {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+#feedback-painel.erro {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+/* ==========================================================================
+   9. RODAPÉ (FOOTER)
+   ========================================================================== */
+.main-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background-color: var(--cor-primaria);
+  color: #94a3b8;
+  font-size: 0.85rem;
+  border-top: 1px solid #1e293b;
+  margin-top: 3rem;
+}
+
+/* ==========================================================================
+   10. RESPONSIVIDADE AVANÇADA (MEDIA QUERIES)
+   ========================================================================== */
+@media (min-width: 600px) {
+  .header-content {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .profile-avatar {
+    width: 140px;
+    height: 140px;
+  }
+
+  .projects-list {
+    grid-template-columns: 1fr 1fr; /* Divide os projetos em 2 colunas se a tela for grande */
+  }
+}
+
+/* ==========================================================================
+   11. BOTÕES DE REDES SOCIAIS (CABEÇALHO)
+   ========================================================================== */
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.2rem;
+    justify-content: center;
+}
+
+.btn-social {
+    display: inline-flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: var(--transicao);
+}
+
+.btn-social:hover {
+    background-color: var(--cor-secundaria);
+    border-color: var(--cor-secundaria);
+    transform: translateY(-2px);
+}
+
+
+.social-icon {
+    margin-right: 0.6rem;
+    font-size: 1.1rem; /* Deixa o ícone oficial em um tamanho proporcional ao texto */
+}
+
+/* Ajuste fino para alinhar os botões à esquerda no desktop */
+@media (min-width: 600px) {
+    .social-links {
+        justify-content: flex-start;
+    }
+}
+
+/* ==========================================================================
+   12. ESTILOS DE IMPRESSÃO (MÍDIA PRINT)
+   ========================================================================== */
+@media print {
+    /* Oculta elementos interativos que não fazem sentido no papel */
+    .filter-controls, 
+    .instruction-text, 
+    .social-links, 
+    #contato, 
+    .main-footer {
+        display: none !important;
+    }
+
+    /* Ajusta o fundo e cores para economizar tinta e manter contraste */
+    body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .portfolio-container {
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .card-section {
+        background-color: #ffffff !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 1rem 0 !important;
+        page-break-inside: avoid; /* Evita que o bloco quebre no meio entre duas páginas */
+    }
+
+    .main-header {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border-bottom: 2px solid #000000 !important;
+        padding: 1rem 0 !important;
+    }
+
+    .profile-intro h2 {
+        color: #475569 !important;
+    }
+
+    .badge-location {
+        border: 1px solid #cbd5e1 !important;
+        color: #000000 !important;
+        background: none !important;
+    }
+
+    .skill-pill {
+        border: 1px solid #cbd5e1 !important;
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+}

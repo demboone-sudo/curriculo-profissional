@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Débora Santos | Análise de Sistemas & Desenvolvimento Web</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-content">
+            <div class="avatar-container">
+                <img src="assets/perfil.jpg" alt="Foto profissional de Débora Santos" class="profile-avatar">
+            </div>
+            <div class="profile-intro">
+                <h1>Débora Maestrini</h1>
+                <h2>Análise de Sistemas & Desenvolvimento Backend</h2>
+                <span class="badge-location">📍 Vila Velha, Espírito Santo</span>
+                
+                <div class="social-links">
+                    <a href="https://github.com/seu-usuario" target="_blank" rel="noopener noreferrer" class="btn-social">
+                        <i class="fa-brands fa-github social-icon"></i> GitHub
+                    </a>
+                    <a href="https://linkedin.com/in/seu-perfil" target="_blank" rel="noopener noreferrer" class="btn-social">
+                        <i class="fa-brands fa-linkedin social-icon"></i> LinkedIn
+                    </a>
+                    <button onclick="window.print()" class="btn-social btn-download">
+                        <i class="fa-solid fa-file-pdf social-icon"></i> Baixar PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="portfolio-container">
+        
+        <section class="card-section" id="perfil">
+            <h3><span class="section-icon">👤</span> Perfil Profissional</h3>
+            <p>
+                Profissional em transição de carreira para o setor de tecnologia, consolidando graduação em <strong>Análise e Desenvolvimento de Sistemas</strong>. Unindo mais de uma década de sólida experiência em gestão estratégica de negócios, empreendedorismo e atendimento ao cliente à paixão por lógica, arquitetura de software e automação de processos. 
+            </p>
+            <p>
+                Focada em desenvolver soluções eficientes, estruturação de dados e automação de rotinas (RPA) utilizando Python e tecnologias web, sempre priorizando a qualidade, segurança e a entrega de valor real para o usuário final.
+            </p>
+        </section>
+
+        <section class="card-section" id="competencias">
+            <h3><span class="section-icon">⚡</span> Competências & Tecnologias</h3>
+            <p class="instruction-text">Clique nos filtros abaixo para selecionar as tecnologias por categoria:</p>
+            
+            <div class="filter-controls">
+                <button class="btn-filter active" data-target="all">Todas</button>
+                <button class="btn-filter" data-target="backend">Backend & Dados</button>
+                <button class="btn-filter" data-target="frontend">Front-End</button>
+                <button class="btn-filter" data-target="infra">Infraestrutura & Ferramentas</button>
+            </div>
+
+            <div class="skills-wrapper">
+                <span class="skill-pill" data-cat="backend">Python (Pandas, Flask, PyAutoGUI)</span>
+                <span class="skill-pill" data-cat="frontend">HTML5 Semântico</span>
+                <span class="skill-pill" data-cat="frontend">CSS3 (Flexbox & Grid Layout)</span>
+                <span class="skill-pill" data-cat="frontend">JavaScript (ES6+ / Manipulação de DOM)</span>
+                <span class="skill-pill" data-cat="backend">PHP (Tratamento de Dados & Requisições)</span>
+                <span class="skill-pill" data-cat="infra">Amazon Web Services (AWS Cloud)</span>
+                <span class="skill-pill" data-cat="infra">Git & Versionamento GitHub</span>
+                <span class="skill-pill" data-cat="backend">Automação de Processos (RPA)</span>
+            </div>
+        </section>
+
+        <section class="card-section" id="formacao">
+            <h3><span class="section-icon">🎓</span> Formação & Certificações</h3>
+            <div class="timeline">
+                <div class="timeline-card">
+                    <h4>Tecnologia em Análise e Desenvolvimento de Sistemas</h4>
+                    <span class="timeline-date">Em andamento</span>
+                    <p class="timeline-institution">Centro Universitário Estácio de Vila Velha</p>
+                </div>
+                <div class="timeline-card">
+                    <h4>AWS Cloud Practitioner Certification Path</h4>
+                    <span class="timeline-date">2026</span>
+                    <p class="timeline-institution">Treinamento em computação em nuvem e arquitetura AWS</p>
+                </div>
+                <div class="timeline-card">
+                    <h4>Formação Extensiva Python</h4>
+                    <span class="timeline-date">2026</span>
+                    <p class="timeline-institution">Foco em Engenharia de Dados, manipulação com Pandas e automações de sistemas</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card-section" id="projetos">
+            <h3><span class="section-icon">💻</span> Projetos em Destaque</h3>
+            <div class="projects-list">
+                <article class="project-item">
+                    <h4>Projeto Ar Limpo GV</h4>
+                    <p>Desenvolvimento de uma plataforma voltada para o monitoramento e análise de métricas de qualidade do ar na Região Metropolitana da Grande Vitória. Focado no tratamento analítico de dados ambientais para exibição de indicadores precisos.</p>
+                </article>
+                <article class="project-item">
+                    <h4>Sistema de Inteligência e Segurança Prisional</h4>
+                    <p>Protótipo de arquitetura de software desenhado para consolidação de métricas, regras de negócio complexas e análise de dados focados em segurança pública e painéis de tomada de decisão.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="card-section" id="contato">
+            <h3><span class="section-icon">✉️</span> Mensagem ao Sistema (Contato)</h3>
+            <p>Preencha o formulário abaixo para testar a integração do Front-end com o servidor PHP:</p>
+            
+            <form action="contato.php" method="POST" class="contact-form" id="form-sistema">
+                <div class="input-container">
+                    <label for="txt-nome">Nome Completo</label>
+                    <input type="text" id="txt-nome" name="nome" required placeholder="Digite seu nome">
+                </div>
+                
+                <div class="input-container">
+                    <label for="txt-email">E-mail Corporativo</label>
+                    <input type="email" id="txt-email" name="email" required placeholder="nome@empresa.com">
+                </div>
+                
+                <div class="input-container">
+                    <label for="txt-mensagem">Descrição da Mensagem</label>
+                    <textarea id="txt-mensagem" name="mensagem" rows="4" required placeholder="Escreva os detalhes da sua solicitação..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-send">Disparar Requisição</button>
+            </form>
+            <div id="feedback-painel" class="hidden"></div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Débora Santos. Código-fonte estruturado sob padrões semânticos W3C.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
