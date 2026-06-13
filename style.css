@@ -1,484 +1,521 @@
 /* ==========================================================================
-   1. VARIÁVEIS DE AMBIENTE (BOAS PRÁTICAS DE FRONT-END)
+   1. VARIÁVEIS GLOBAIS E CONFIGURAÇÃO DA PALETA HEROICA
    ========================================================================== */
 :root {
-  --bg-principal: #f4f6f9;
-  --bg-card: #ffffff;
-  --texto-escuro: #1e293b;
-  --texto-suave: #64748b;
-  --cor-primaria: #0f172a; /* Azul Escuro / Grafite (Sóbrio) */
-  --cor-secundaria: #0284c7; /* Azul Tech (Destaques e links) */
-  --cor-sucesso: #10b981; /* Verde (Ações positivas e tags) */
-  --borda-suave: #e2e8f0;
-  --sombra-card:
-    0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --transicao: all 0.3s ease;
+    --Fundo-Top-Escuro: #0f172a;  /* Azul escuro profundo heróico */
+    --Fundo-Base-Claro: #cbd5e1;  /* Cinza claro suave para o final da página */
+    --Gradiente-Heroico: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #8b5cf6 100%);
+    --Cor-Principal: #3b82f6;
+    --Cor-Destaque: #8b5cf6;
+    --Cor-Folha: transparent;     /* Transparência para integrar ao fundo escuro */
+    --Borda-Suave: #e2e8f0;
+    
+    /* Cores de Feedback para o Painel de Contato */
+    --sucesso-fundo: rgba(34, 197, 94, 0.2);
+    --sucesso-texto: #4ade80;
+    --erro-fundo: rgba(239, 68, 68, 0.2);
+    --erro-texto: #f87171;
 }
 
 /* ==========================================================================
-   2. RESET UNIVERSAL E CONFIGURAÇÃO BASE
+   2. ESTRUTURA DO BODY E RESET
    ========================================================================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; /* Garante que padding não altere o tamanho final do elemento */
+html, body {
+    height: 100%;
 }
 
 body {
-  font-family: "Inter", sans-serif; /* Fonte limpa e legível */
-  background-color: var(--bg-principal);
-  color: var(--texto-escuro);
-  line-height: 1.6;
-  padding-bottom: 60px;
+    margin: 0;
+    padding: 3rem 1rem;
+    display: flex;
+    justify-content: center;
+    background-color: #0f172a; /* Cor sólida de segurança */
+    font-family: system-ui, -apple-system, sans-serif;
 }
 
 /* ==========================================================================
-   3. CABEÇALHO (HEADER) - DESIGN SOFISTICADO
+   3. CONFIGURAÇÃO DAS DIAGONAIS DESLIZANTES HEROICAS (BACKGROUND)
    ========================================================================== */
-.main-header {
-  background: linear-gradient(135deg, var(--cor-primaria) 0%, #1e293b 100%);
-  color: #ffffff;
-  padding: 3rem 1rem;
-  text-align: center;
-  border-bottom: 4px solid var(--cor-secundaria);
+.bg {
+    animation: slide 7s ease-in-out infinite alternate; 
+    background-image: linear-gradient(-60deg, #1e3a8a 50%, #8b5cf6 50%);
+    bottom: 0;
+    left: -50%;
+    opacity: 0.3; /* Discreto para não atrapalhar a leitura */
+    position: fixed;
+    right: -50%;
+    top: 0;
+    z-index: -1; /* Garante que fique atrás de todo o conteúdo */
 }
 
-.header-content {
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
+.bg2 {
+    animation-direction: alternate-reverse;
+    animation-duration: 8s; /* Velocidades diferentes para cruzamento */
+    background-image: linear-gradient(-60deg, #3b82f6 50%, #1e3a8a 50%);
 }
 
-.profile-avatar {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #ffffff;
-  box-shadow: var(--sombra-card);
-  background-color: var(
-    --texto-suave
-  ); /* Fallback caso esteja sem foto temporariamente */
+.bg3 {
+    animation-duration: 10s;
+    background-image: linear-gradient(-60deg, #8b5cf6 50%, #3b82f6 50%);
 }
 
-.profile-intro h1 {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.05em;
-}
-
-.profile-intro h2 {
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: #94a3b8;
-  margin-bottom: 1rem;
-}
-
-.badge-location {
-  background-color: rgba(2, 132, 199, 0.2);
-  color: #38bdf8;
-  padding: 0.4rem 1rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
+@keyframes slide {
+    0% { transform: translateX(-25%); }
+    100% { transform: translateX(25%); }
 }
 
 /* ==========================================================================
-   4. LAYOUT PRINCIPAL E ESTRUTURA DOS CARDS
+   4. FORMATO E TRATAMENTO TEXTUAL DA FOLHA DO CURRÍCULO
    ========================================================================== */
-.portfolio-container {
-  max-width: 850px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem; /* Espaçamento idêntico entre os blocos */
+.folha-a4 {
+    background: var(--Cor-Folha);
+    max-width: 820px;
+    width: 100%;
+    padding: 4rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
 }
 
-.card-section {
-  background-color: var(--bg-card);
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: var(--sombra-card);
-  border: 1px solid var(--borda-suave);
+/* Padronização de cores para garantir leitura no fundo escuro */
+.texto-sobre, .item-conteudo p, .coluna p {
+    color: #e2e8f0 !important; /* Branco suave para os parágrafos */
 }
 
-.card-section h3 {
-  font-size: 1.3rem;
-  color: var(--cor-primaria);
-  margin-bottom: 1.2rem;
-  border-bottom: 2px solid var(--borda-suave);
-  padding-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
+.resume-section h2, .coluna h3, .item-conteudo h3, .coluna-foco h3 {
+    color: #ffffff !important; /* Branco puro para os títulos */
 }
 
-.section-icon {
-  margin-right: 0.75rem;
+.resume-section h2 {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
 }
 
-.card-section p {
-  color: var(--texto-suave);
-  margin-bottom: 1rem;
-  text-align: justify;
+.resume-section h2::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, var(--Cor-Principal), transparent);
+    margin-left: 1rem;
 }
 
-.card-section p strong {
-  color: var(--texto-escuro);
+.texto-sobre {
+    font-size: 0.95rem;
+    text-align: justify;
 }
 
 /* ==========================================================================
-   5. SEÇÃO SELETORA: FILTROS E COMPETÊNCIAS (GANCHO JAVASCRIPT)
+   5. CABEÇALHO ARTÍSTICO & AVATAR BLOB DO TOPO
    ========================================================================== */
-.instruction-text {
-  font-size: 0.9rem;
-  font-style: italic;
-  margin-bottom: 0.8rem !important;
+.resume-header {
+    text-align: center;
+    border-bottom: 1px dashed var(--Borda-Suave);
+    padding-bottom: 2rem;
 }
 
-.filter-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+.resume-header h1 {
+    font-family: "Atomic Age", system-ui;
+    font-size: 3rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    color: #ffffff;
 }
 
-.btn-filter {
-  background-color: var(--bg-principal);
-  border: 1px solid var(--borda-suave);
-  color: var(--texto-suave);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 0.85rem;
-  transition: var(--transicao);
+.resume-header h1 span {
+    font-family: "Atomic Age", system-ui;
+    background: linear-gradient(135deg, #a0b9dd 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.btn-filter:hover {
-  background-color: #cbd5e1;
-  color: var(--texto-escuro);
+.subtitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #a0b9dd;
+    min-height: 24px;
 }
 
-.btn-filter.active {
-  background-color: var(--cor-secundaria);
-  color: #ffffff;
-  border-color: var(--cor-secundaria);
+/* Avatar em Formato Blob com Animação Fluida */
+.avatar-container {
+    width: 280px;
+    height: 280px;
+    background: transparent;
+    margin: 0 auto 1.25rem auto;
+    position: relative;
+    border: 2px solid rgba(59, 130, 246, 0.5); 
+    animation: moverBlob 8s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4), 0 0 30px rgba(139, 92, 246, 0.2);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
 }
 
-.skills-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    animation: moverBlob 8s ease-in-out infinite;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.skill-pill {
-  background-color: var(--bg-principal);
-  color: var(--texto-escuro);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border-left: 3px solid var(--cor-secundaria);
-  transition: var(--transicao);
+.avatar-container:hover {
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.8), 0 0 50px rgba(139, 92, 246, 0.6), 0 0 70px rgba(139, 92, 246, 0.3);
+    transform: translateY(-5px) scale(1.03) rotate(3deg);
+    border-color: var(--Cor-Destaque);
+    cursor: pointer;
 }
 
-/* Animação que o JavaScript usará para ocultar e exibir as tags */
-.skill-pill.hidden {
-  display: none;
+@keyframes moverBlob {
+    0% { border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%; }
+    34% { border-radius: 60% 40% 50% 50% / 40% 60% 45% 55%; }
+    67% { border-radius: 45% 55% 40% 60% / 55% 40% 60% 40%; }
+    100% { border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%; }
 }
 
 /* ==========================================================================
-   6. LINHA DO TEMPO (FORMAÇÃO ACADÉMICA)
+   6. MÁQUINA DE ESCREVER E ÍCONES SOCIAIS (FLIP 3D)
    ========================================================================== */
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  border-left: 2px solid var(--borda-suave);
-  padding-left: 1.2rem;
-  margin-left: 0.5rem;
+#efeito-digitar {
+    display: inline-block;
+    border-right: 3px solid var(--Cor-Destaque);
+    animation: piscarCursor 0.75s step-end infinite;
 }
 
-.timeline-card {
-  position: relative;
+@keyframes piscarCursor {
+    from, to { border-color: transparent }
+    50% { border-color: var(--Cor-Destaque); }
 }
 
-/* A bolinha da linha do tempo */
-.timeline-card::before {
-  content: "";
-  position: absolute;
-  left: -25px;
-  top: 6px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: var(--cor-secundaria);
-}
-
-.timeline-card h4 {
-  font-size: 1.1rem;
-  color: var(--texto-escuro);
-}
-
-.timeline-date {
-  display: inline-block;
-  font-size: 0.8rem;
-  background-color: #f1f5f9;
-  padding: 0.1rem 0.5rem;
-  border-radius: 4px;
-  color: var(--cor-secundaria);
-  font-weight: 600;
-  margin: 0.25rem 0;
-}
-
-.timeline-institution {
-  font-size: 0.9rem;
-  color: var(--texto-suave);
-}
-
-/* ==========================================================================
-   7. PROJETOS EM DESTAQUE
-   ========================================================================== */
-.projects-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-.project-item {
-  background-color: var(--bg-principal);
-  padding: 1.25rem;
-  border-radius: 8px;
-  border: 1px solid var(--borda-suave);
-  transition: var(--transicao);
-}
-
-/* Efeito Hover sutil - Demonstra capricho no acabamento */
-.project-item:hover {
-  transform: translateY(-2px);
-  border-color: var(--cor-secundaria);
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05);
-}
-
-.project-item h4 {
-  color: var(--cor-primaria);
-  margin-bottom: 0.5rem;
-}
-
-/* ==========================================================================
-   8. FORMULÁRIO DE CONTATO (ESTRUTURA DE DADOS COMPATÍVEL COM PHP)
-   ========================================================================== */
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  margin-top: 1rem;
-}
-
-.input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.input-container label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--texto-escuro);
-}
-
-.input-container input,
-.input-container textarea {
-  font-family: inherit;
-  padding: 0.75rem;
-  border: 1px solid var(--borda-suave);
-  border-radius: 6px;
-  background-color: var(--bg-principal);
-  color: var(--texto-escuro);
-  font-size: 0.95rem;
-  transition: var(--transicao);
-}
-
-/* Estado de Foco - Acessibilidade para navegação via teclado */
-.input-container input:focus,
-.input-container textarea:focus {
-  outline: none;
-  border-color: var(--cor-secundaria);
-  background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-}
-
-.btn-send {
-  background-color: var(--cor-secundaria);
-  color: #ffffff;
-  border: none;
-  padding: 0.85rem;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transicao);
-}
-
-.btn-send:hover {
-  background-color: #0369a1;
-}
-
-/* Painel de Feedback injetado pelo JS ou PHP */
-#feedback-painel {
-  padding: 1rem;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  margin-top: 1rem;
-  font-weight: 500;
-}
-
-#feedback-painel.sucesso {
-  background-color: #d1fae5;
-  color: #065f46;
-  border: 1px solid #a7f3d0;
-}
-
-#feedback-painel.erro {
-  background-color: #fee2e2;
-  color: #991b1b;
-  border: 1px solid #fca5a5;
-}
-
-/* ==========================================================================
-   9. RODAPÉ (FOOTER)
-   ========================================================================== */
-.main-footer {
-  text-align: center;
-  padding: 1.5rem 1rem;
-  background-color: var(--cor-primaria);
-  color: #94a3b8;
-  font-size: 0.85rem;
-  border-top: 1px solid #1e293b;
-  margin-top: 3rem;
-}
-
-/* ==========================================================================
-   10. RESPONSIVIDADE AVANÇADA (MEDIA QUERIES)
-   ========================================================================== */
-@media (min-width: 600px) {
-  .header-content {
-    flex-direction: row;
-    text-align: left;
-  }
-
-  .profile-avatar {
-    width: 140px;
-    height: 140px;
-  }
-
-  .projects-list {
-    grid-template-columns: 1fr 1fr; /* Divide os projetos em 2 colunas se a tela for grande */
-  }
-}
-
-/* ==========================================================================
-   11. BOTÕES DE REDES SOCIAIS (CABEÇALHO)
-   ========================================================================== */
 .social-links {
     display: flex;
-    gap: 1rem;
-    margin-top: 1.2rem;
+    gap: 0.75rem;
     justify-content: center;
+    margin-top: 1.25rem;
 }
 
 .btn-social {
     display: inline-flex;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    text-decoration: none;
-    padding: 0.5rem 1.2rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: var(--transicao);
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid var(--Borda-Suave);
+    background: white;
+    color: #0f172a;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .btn-social:hover {
-    background-color: var(--cor-secundaria);
-    border-color: var(--cor-secundaria);
-    transform: translateY(-2px);
+    border-color: var(--Cor-Principal);
+    color: var(--Cor-Principal);
+    transform: translateY(-3px);
 }
 
-
-.social-icon {
-    margin-right: 0.6rem;
-    font-size: 1.1rem; /* Deixa o ícone oficial em um tamanho proporcional ao texto */
+.btn-download {
+    background: var(--Gradiente-Heroico);
+    color: white !important;
+    border: none;
 }
 
-/* Ajuste fino para alinhar os botões à esquerda no desktop */
-@media (min-width: 600px) {
-    .social-links {
-        justify-content: flex-start;
-    }
+.animar-flip {
+    display: inline-flex;
+    transform-style: preserve-3d; 
+    animation: giroHeroico3D 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes giroHeroico3D {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(180deg); }
+    100% { transform: rotateY(360deg); }
 }
 
 /* ==========================================================================
-   12. ESTILOS DE IMPRESSÃO (MÍDIA PRINT)
+   7. SEÇÃO DE OBJETIVOS E CAIXINHAS DE TECNOLOGIAS (GLASSMORPHISM)
    ========================================================================== */
+.target-section {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.focos-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.coluna-foco {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05); 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.4s ease;
+}
+
+.coluna-foco h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.coluna-foco h3 i {
+    color: var(--Cor-Destaque);
+}
+
+.coluna-foco p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8); 
+    margin-bottom: 0.5rem;
+}
+
+.coluna-foco p strong {
+    color: #a0b9dd; 
+}
+
+.coluna-foco:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(139, 92, 246, 0.4); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
+   8. EFEITO DAS COLUNAS EXPANSÍVEIS (FLEXBOX DINÂMICO)
+   ========================================================================== */
+.container-colunas {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    min-height: 180px;
+}
+
+.coluna {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    padding: 1.25rem;
+    border-radius: 12px;
+    border-top: 4px solid var(--Cor-Principal) !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    color: white !important;
+}
+
+.coluna p {
+    opacity: 0;
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    text-align: justify;
+}
+
+.coluna:hover {
+    flex: 2; 
+    background: rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.15);
+    border-color: var(--Cor-Principal) !important;
+}
+
+.coluna:hover p {
+    opacity: 1;
+    transform: translateY(0); 
+}
+
+.container-colunas:hover .coluna:not(:hover) {
+    opacity: 0.5;
+}
+
+/* ==========================================================================
+   9. CONFIGURAÇÃO DO BLOCO DUPLO (TRAJETÓRIA E FORMAÇÃO)
+   ========================================================================== */
+.bloco-duplo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+.item-conteudo {
+    margin-bottom: 1.25rem;
+}
+
+.periodo, .institution { 
+    font-size: 0.85rem; 
+    color: #a0b9dd; 
+    font-weight: 600; 
+}
+
+/* ==========================================================================
+   10. SEÇÃO DE CONTATO DO RODAPÉ (DUAS COLUNAS + FEEDBACK)
+   ========================================================================== */
+.contact-section {
+    width: 100%;
+    margin-top: 2rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.03); 
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contato-wrapper-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2.5rem; 
+    width: 100%;
+}
+
+.contato-coluna-esquerda {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contato-coluna-esquerda h2 {
+    margin-bottom: 0.5rem;
+}
+
+.contato-coluna-direita {
+    flex: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.input-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.input-row input {
+    flex: 1;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;                  
+    box-sizing: border-box;       
+    padding: 0.85rem;
+    border: 2px solid var(--Borda-Suave);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    color: #0f172a !important; /* Força o texto digitado no form a ficar escuro e legível */
+}
+
+.input-container {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--Cor-Principal);
+    background: #ffffff;
+}
+
+.btn-send {
+    background: var(--Gradiente-Heroico);
+    color: white;
+    border: none;
+    padding: 0.85rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-send:hover { 
+    filter: brightness(1.1); 
+}
+
+#feedback-painel { 
+    padding: 0.75rem; 
+    border-radius: 8px; 
+    font-size: 0.9rem; 
+    margin-top: 0.75rem; 
+    font-weight: 700; 
+    text-align: center; 
+}
+#feedback-painel.hidden { display: none; }
+#feedback-painel.sucesso { display: block; background: var(--sucesso-fundo); color: var(--sucesso-texto); }
+#feedback-painel.erro { display: block; background: var(--erro-fundo); color: var(--erro-texto); }
+
+/* Avatar Blob Secundário do Contato */
+.contato-avatar-container {
+    width: 200px;  
+    height: 200px;
+    position: relative;
+    border: 2px solid rgba(200, 189, 224, 0.5);
+    border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%;
+    animation: moverBlob 8s ease-in-out infinite;
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.3);
+    overflow: hidden;
+}
+
+.contato-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%;
+    animation: moverBlob 8s ease-in-out infinite;
+}
+
+.contato-avatar-container:hover {
+    box-shadow: 0 0 25px rgba(205, 199, 221, 0.7), 0 0 50px rgba(59, 130, 246, 0.4);
+    transform: scale(1.05) rotate(-3deg);
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   11. RESPONSIVIDADE E CONFIGURAÇÃO DE IMPRESSÃO (PDF CLEAN)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .contato-wrapper-flex, .focos-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .contato-coluna-direita {
+        order: -1; /* Foto fica no topo no mobile */
+    }
+}
+
+@media (max-width: 600px) {
+    .bloco-duplo, .input-row, .container-colunas { 
+        grid-template-columns: 1fr; 
+        flex-direction: column; 
+    }
+    .folha-a4 { 
+        padding: 2rem 1rem; 
+    }
+}
+
 @media print {
-    /* Oculta elementos interativos que não fazem sentido no papel */
-    .filter-controls, 
-    .instruction-text, 
-    .social-links, 
-    #contato, 
-    .main-footer {
-        display: none !important;
-    }
-
-    /* Ajusta o fundo e cores para economizar tinta e manter contraste */
-    body {
-        background-color: #ffffff !important;
-        color: #000000 !important;
-        padding-bottom: 0 !important;
-    }
-
-    .portfolio-container {
-        margin: 0 !important;
-        padding: 0 !important;
-        max-width: 100% !important;
-    }
-
-    .card-section {
-        background-color: #ffffff !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 1rem 0 !important;
-        page-break-inside: avoid; /* Evita que o bloco quebre no meio entre duas páginas */
-    }
-
-    .main-header {
-        background: #ffffff !important;
-        color: #000000 !important;
-        border-bottom: 2px solid #000000 !important;
-        padding: 1rem 0 !important;
-    }
-
-    .profile-intro h2 {
-        color: #475569 !important;
-    }
-
-    .badge-location {
-        border: 1px solid #cbd5e1 !important;
-        color: #000000 !important;
-        background: none !important;
-    }
-
-    .skill-pill {
-        border: 1px solid #cbd5e1 !important;
-        background-color: #ffffff !important;
-        color: #000000 !important;
-    }
+    body { background: white; padding: 0; }
+    .folha-a4 { box-shadow: none; padding: 0; max-width: 100%; }
+    .coluna p { opacity: 1; transform: none; }
+    .folha-a4::before, .contact-section, .social-links { display: none !important; }
 }

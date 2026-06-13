@@ -1,29 +1,28 @@
 <?php
 /* ==========================================================================
-   BACKEND PHP - PROCESSAMENTO SEGURO E PERSISTÊNCIA DE DADOS
+   BACKEND PHP - PROCESSAMENTO SEGURO, LOG LOCAL E ALERTA TELEGRAM
    ========================================================================== */
 
-// Configura o cabeçalho para responder no formato JSON (padrão de mercado para APIs)
+// Configura o cabeçalho para responder no formato JSON (essencial para o Fetch do JS)
 header('Content-Type: application/json; charset=utf-8');
 
-// Array que guardará a resposta que será devolvida para o JavaScript exibir na tela
+// Array que estruturará a resposta de volta para o Front-end
 $resposta = [
     'sucesso' => false,
     'mensagem' => ''
 ];
 
-// Garante que o arquivo só processa requisições do tipo POST
+// Garante que o arquivo só aceita requisições do tipo POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    // 1. CAPTURA E SANITIZAÇÃO DE DADOS (Foco em Segurança da Informação)
-    // O htmlspecialchars impede ataques XSS, neutralizando tags HTML ou scripts maliciosos.
+    // 1. CAPTURA E SANITIZAÇÃO DE DADOS (Proteção contra XSS e Injeção de scripts)
     $nome     = isset($_POST['nome']) ? htmlspecialchars(trim($_POST['nome']), ENT_QUOTES, 'UTF-8') : '';
     $email    = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL) : '';
     $mensagem = isset($_POST['mensagem']) ? htmlspecialchars(trim($_POST['mensagem']), ENT_QUOTES, 'UTF-8') : '';
 
-    // 2. VALIDAÇÃO NO SERVIDOR (Segunda camada de proteção caso o JS seja burlado)
+    // 2. VALIDAÇÃO DE SEGURANÇA NO SERVIDOR (Segunda camada de proteção)
     if (empty($nome) || strlen($nome) < 3) {
-        $resposta['mensagem'] = 'O nome introduzido é inválido ou muito curto (mínimo 3 caracteres).';
+        $resposta['mensagem'] = 'O nome introduzido é inválido (mínimo 3 caracteres).';
         echo json_encode($resposta);
         exit;
     }
@@ -40,10 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // 3. PERSISTÊNCIA DE DADOS (Salvando em arquivo de texto plano .txt)
+    // 3. PERSISTÊNCIA DE DADOS (Gravando o histórico no mensagens.txt)
     $dataHora = date('d/m/Y H:i:s');
     
-    // Estrutura o texto que será guardado no arquivo mensagens.txt
     $blocoTexto  = "========================================\n";
     $blocoTexto .= "Nova Mensagem Recebida em: $dataHora\n";
     $blocoTexto .= "Nome: $nome\n";
@@ -51,21 +49,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $blocoTexto .= "Mensagem: $mensagem\n";
     $blocoTexto .= "========================================\n\n";
 
-    $nomeArquivo = 'mensagens.txt';
+    // Salva localmente na pasta do projeto (Requisito obrigatório da Estácio)
+    file_put_contents('mensagens.txt', $blocoTexto, FILE_APPEND | LOCK_EX);
 
-    // FILE_APPEND: Acrescenta o texto no final do arquivo sem apagar o que já existia.
-    // LOCK_EX: Bloqueia o arquivo temporariamente enquanto escreve para evitar corrupção de dados.
-    if (file_put_contents($nomeArquivo, $blocoTexto, FILE_APPEND | LOCK_EX)) {
-        $resposta['sucesso'] = true;
-        $resposta['mensagem'] = "Obrigado, $nome! A sua mensagem foi processada e gravada com sucesso no servidor.";
-    } else {
-        $resposta['mensagem'] = 'Ocorreu um erro interno no servidor ao tentar guardar os dados.';
-    }
+    // 4. DISPARO DE NOTIFICAÇÃO PARA A API DO TELEGRAM (Seu diferencial de nota)
+    // ⚠️ RECOLE AQUI AS SUAS CREDENCIAIS CASO TENHA APAGADO:
+    $telegramToken  = '8447446918:AAHWBMnKR-ybNq3TTs1b0QC3hZ1-0SOnsUk';
+    $telegramChatId = '7493420648';
+
+    // Monta a mensagem que chega estruturada no seu celular
+    $textoNotificacao  = "🚨 *Novo Contato Recebido no Portfólio!*\n\n";
+    $textoNotificacao .= "👤 *Nome:* $nome\n";
+    $textoNotificacao .= "📧 *E-mail:* $email\n";
+    $textoNotificacao .= "💬 *Mensagem:* $mensagem";
+
+    $urlTelegram = "https://api.telegram.org/bot" . $telegramToken . "/sendMessage";
+    
+    $dadosEnvio = [
+        'chat_id'    => $telegramChatId,
+        'text'       => $textoNotificacao,
+        'parse_mode' => 'Markdown'
+    ];
+
+    // Configura os cabeçalhos da requisição HTTP nativa do PHP
+    $opcoesHttp = [
+        'http' => [
+            'method'  => 'POST',
+            'header'  => "Content-Type: application/x-www-form-urlencoded\r\n",
+            'content' => http_build_query($dadosEnvio)
+        ]
+    ];
+    $contexto = stream_context_create($opcoesHttp);
+    
+    // Envia o alerta em segundo plano para o Telegram
+    @file_get_contents($urlTelegram, false, $contexto);
+
+    // 5. RESPOSTA DE SUCESSO COGNITIVA (O JavaScript vai ler isso para pintar a caixinha de verde!)
+    $resposta['sucesso'] = true;
+    $resposta['mensagem'] = "Obrigado, $nome! Sua mensagem foi enviada com sucesso.";
 
 } else {
-    // Se alguém tentar aceder a este arquivo diretamente digitando a URL no navegador
-    $resposta['mensagem'] = 'Método de requisição não permitido para este recurso.';
+    // Caso tentem acessar o arquivo direto digitando o link no navegador
+    $resposta['mensagem'] = 'Método de requisição não permitido.';
 }
 
-// Converte o array PHP em formato JSON e envia de volta para o Front-end
+// Converte o resultado final em texto JSON e exibe
 echo json_encode($resposta);

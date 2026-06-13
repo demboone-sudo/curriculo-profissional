@@ -3,143 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Débora Santos | Análise de Sistemas & Desenvolvimento Web</title>
+    <title>Currículo Profissional | Debora Maestrini</title>
     
-    <link rel="stylesheet" href="style.css">
+    <!-- Componentes de UI e Ícones -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/shoelace-autoloader.js"></script>
+    <script src="https://kit.fontawesome.com/aef6b29b41.js" crossorigin="anonymous"></script>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Fontes Disponíveis -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Atomic+Age&display=swap" rel="stylesheet">
+    
+    <!-- Folha de Estilos Externa -->
+    <link rel="stylesheet" href="style.css?v=34.0">
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="header-content">
-            <div class="avatar-container">
-                <img src="assets/perfil.jpg" alt="Foto profissional de Débora Santos" class="profile-avatar">
-            </div>
-            <div class="profile-intro">
-                <h1>Débora Maestrini</h1>
-                <h2>Análise de Sistemas & Desenvolvimento Backend</h2>
-                <span class="badge-location">📍 Vila Velha, Espírito Santo</span>
-                
-                <div class="social-links">
-                    <a href="https://github.com/seu-usuario" target="_blank" rel="noopener noreferrer" class="btn-social">
-                        <i class="fa-brands fa-github social-icon"></i> GitHub
-                    </a>
-                    <a href="https://linkedin.com/in/seu-perfil" target="_blank" rel="noopener noreferrer" class="btn-social">
-                        <i class="fa-brands fa-linkedin social-icon"></i> LinkedIn
-                    </a>
-                    <button onclick="window.print()" class="btn-social btn-download">
-                        <i class="fa-solid fa-file-pdf social-icon"></i> Baixar PDF
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- 🌟 ELEMENTOS DO EFEITO ANIMADO DE DIAGONAIS (Fundo da Tela) -->
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
 
-    <main class="portfolio-container">
+    <!-- CONTÊINER PRINCIPAL (CORPO DO CURRÍCULO) -->
+    <div class="folha-a4">
         
-        <section class="card-section" id="perfil">
-            <h3><span class="section-icon">👤</span> Perfil Profissional</h3>
-            <p>
-                Profissional em transição de carreira para o setor de tecnologia, consolidando graduação em <strong>Análise e Desenvolvimento de Sistemas</strong>. Unindo mais de uma década de sólida experiência em gestão estratégica de negócios, empreendedorismo e atendimento ao cliente à paixão por lógica, arquitetura de software e automação de processos. 
-            </p>
-            <p>
-                Focada em desenvolver soluções eficientes, estruturação de dados e automação de rotinas (RPA) utilizando Python e tecnologias web, sempre priorizando a qualidade, segurança e a entrega de valor real para o usuário final.
-            </p>
-        </section>
-
-        <section class="card-section" id="competencias">
-            <h3><span class="section-icon">⚡</span> Competências & Tecnologias</h3>
-            <p class="instruction-text">Clique nos filtros abaixo para selecionar as tecnologias por categoria:</p>
+        <!-- CABEÇALHO DO CURRÍCULO -->
+        <header class="resume-header">
+            <div class="avatar-container">
+                <img src="imagem/avatar.png" alt="DEBORA MAESTRINI" class="avatar-img" onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=Debora'">
+            </div>
             
-            <div class="filter-controls">
-                <button class="btn-filter active" data-target="all">Todas</button>
-                <button class="btn-filter" data-target="backend">Backend & Dados</button>
-                <button class="btn-filter" data-target="frontend">Front-End</button>
-                <button class="btn-filter" data-target="infra">Infraestrutura & Ferramentas</button>
-            </div>
-
-            <div class="skills-wrapper">
-                <span class="skill-pill" data-cat="backend">Python (Pandas, Flask, PyAutoGUI)</span>
-                <span class="skill-pill" data-cat="frontend">HTML5 Semântico</span>
-                <span class="skill-pill" data-cat="frontend">CSS3 (Flexbox & Grid Layout)</span>
-                <span class="skill-pill" data-cat="frontend">JavaScript (ES6+ / Manipulação de DOM)</span>
-                <span class="skill-pill" data-cat="backend">PHP (Tratamento de Dados & Requisições)</span>
-                <span class="skill-pill" data-cat="infra">Amazon Web Services (AWS Cloud)</span>
-                <span class="skill-pill" data-cat="infra">Git & Versionamento GitHub</span>
-                <span class="skill-pill" data-cat="backend">Automação de Processos (RPA)</span>
-            </div>
-        </section>
-
-        <section class="card-section" id="formacao">
-            <h3><span class="section-icon">🎓</span> Formação & Certificações</h3>
-            <div class="timeline">
-                <div class="timeline-card">
-                    <h4>Tecnologia em Análise e Desenvolvimento de Sistemas</h4>
-                    <span class="timeline-date">Em andamento</span>
-                    <p class="timeline-institution">Centro Universitário Estácio de Vila Velha</p>
-                </div>
-                <div class="timeline-card">
-                    <h4>AWS Cloud Practitioner Certification Path</h4>
-                    <span class="timeline-date">2026</span>
-                    <p class="timeline-institution">Treinamento em computação em nuvem e arquitetura AWS</p>
-                </div>
-                <div class="timeline-card">
-                    <h4>Formação Extensiva Python</h4>
-                    <span class="timeline-date">2026</span>
-                    <p class="timeline-institution">Foco em Engenharia de Dados, manipulação com Pandas e automações de sistemas</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="card-section" id="projetos">
-            <h3><span class="section-icon">💻</span> Projetos em Destaque</h3>
-            <div class="projects-list">
-                <article class="project-item">
-                    <h4>Projeto Ar Limpo GV</h4>
-                    <p>Desenvolvimento de uma plataforma voltada para o monitoramento e análise de métricas de qualidade do ar na Região Metropolitana da Grande Vitória. Focado no tratamento analítico de dados ambientais para exibição de indicadores precisos.</p>
-                </article>
-                <article class="project-item">
-                    <h4>Sistema de Inteligência e Segurança Prisional</h4>
-                    <p>Protótipo de arquitetura de software desenhado para consolidação de métricas, regras de negócio complexas e análise de dados focados em segurança pública e painéis de tomada de decisão.</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="card-section" id="contato">
-            <h3><span class="section-icon">✉️</span> Mensagem ao Sistema (Contato)</h3>
-            <p>Preencha o formulário abaixo para testar a integração do Front-end com o servidor PHP:</p>
+            <h1>DEBORA <span>MAESTRINI</span></h1>
+            <p id="efeito-digitar" class="subtitle"></p>
             
-            <form action="contato.php" method="POST" class="contact-form" id="form-sistema">
-                <div class="input-container">
-                    <label for="txt-nome">Nome Completo</label>
-                    <input type="text" id="txt-nome" name="nome" required placeholder="Digite seu nome">
-                </div>
-                
-                <div class="input-container">
-                    <label for="txt-email">E-mail Corporativo</label>
-                    <input type="email" id="txt-email" name="email" required placeholder="nome@empresa.com">
-                </div>
-                
-                <div class="input-container">
-                    <label for="txt-mensagem">Descrição da Mensagem</label>
-                    <textarea id="txt-mensagem" name="mensagem" rows="4" required placeholder="Escreva os detalhes da sua solicitação..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn-send">Disparar Requisição</button>
-            </form>
-            <div id="feedback-painel" class="hidden"></div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/debora-maestrini/" target="_blank" class="btn-social" title="LinkedIn">
+                    <i class="fa-brands fa-square-linkedin fa-xl"></i>
+                </a>
+                <a href="https://github.com/demboone-sudo" target="_blank" class="btn-social" title="GitHub">
+                    <i class="fa-brands fa-github fa-xl"></i>
+                </a>
+                <button onclick="window.print()" class="btn-social btn-download" title="Gerar PDF">
+                    <i class="fa-regular fa-file-pdf fa-xl"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- SEÇÃO: SOBRE MIM -->
+        <section class="resume-section">
+            <h2>Sobre Mim</h2>
+            <div class="linha-decorativa"></div>
+            <p class="texto-sobre">
+                Olá, que bom ter você por aqui!<br><br>
+                Sempre fui movida pela resolução de problemas e pela busca constante de novos aprendizados. 
+                Depois de construir uma trajetória sólida e madura no mercado de trabalho — acumulando 13 anos de experiência no 
+                setor de saúde e 14 anos empreendendo com sucesso no setor de confeitaria —, decidi direcionar minha capacidade 
+                analítica para a minha verdadeira paixão atual: a Tecnologia da Informação.<br><br>
+                Atualmente, sou estudante de Análise e Desenvolvimento de Sistemas no Centro Universitário Estácio e 
+                venho construindo uma nova história como Analista de Sistemas. Essa transição de carreira é o reflexo da 
+                minha busca por inovação e do meu perfil resiliente, capaz de adaptar processos e encontrar soluções eficientes 
+                para desafios reais.
+            </p>
         </section>
 
-    </main>
+        <!-- SEÇÃO: OBJETIVO PROFISSIONAL & ECOSSISTEMA CRIATIVO -->
+        <section class="resume-section target-section">
+            <h2>OBJETIVO PROFISSIONAL</h2>
+            <div class="linha-decorativa"></div>
+            
+            <p class="texto-sobre">
+                Atuar como <strong>Analista de Sistemas</strong>, unindo minha forte capacidade analítica e de resolução de problemas à minha 
+                veia criativa e artística. Busco desenvolver soluções que alinhem a robustez do Back-end e da Automação (RPA) com 
+                a excelência visual, harmonia e interatividade do Front-end, criando experiências tecnológicas completas e inovadoras.
+            </p>
 
-    <footer class="main-footer">
-        <p>&copy; 2026 Débora Santos. Código-fonte estruturado sob padrões semânticos W3C.</p>
-    </footer>
+            <!-- Caixinhas de Foco com Design Fluido -->
+            <div class="focos-container">
+                
+                <!-- Bloco 1: A Arte do Front-end -->
+                <div class="coluna-foco">
+                    <h3><i class="fa-solid fa-palette"></i> Front-end & Sensibilidade Visual</h3>
+                    <p><strong>Design & Código:</strong> Paixão por praticar HTML5 e CSS3, criando interfaces harmoniosas, layouts fluidos e transições modernas.</p>
+                    <p><strong>Dinamismo:</strong> Aplicação de JavaScript para dar vida, movimento e interatividade às páginas.</p>
+                </div>
 
+                <!-- Bloco 2: A Engenharia do Back-end -->
+                <div class="coluna-foco">
+                    <h3><i class="fa-solid fa-laptop"></i> Engenharia de Software & Dados</h3>
+                    <p><strong>Lógica & Automação:</strong> Desenvolvimento em Python para Análise de Dados e Automação RPA.</p>
+                    <p><strong>Arquitetura:</strong> Criação e integração de APIs, processamento em PHP, lógica em Java e infraestrutura em Nuvem (AWS).</p>
+                </div>
+
+                <!-- Bloco 3: O Futuro com IA & Aprendizado -->
+                <div class="coluna-foco">
+                    <h3><i class="fa-solid fa-rocket"></i> Inovação & Certificações</h3>
+                    <p><strong>Inteligência Artificial:</strong> Prompting Responsável (Santander Open Academy) e Imersão em Agentes de IA.</p>
+                    <p><strong>Evolução Contínua:</strong> Certificada na Jornada Python e expandindo horizontes com o <strong>Inglês Básico</strong>.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- BLOCO DUPLO: TRAJETÓRIA E FORMAÇÃO LADO A LADO -->
+        <div class="bloco-duplo">
+            
+            <!-- Coluna: Trajetória Profissional Atualizada -->
+            <section class="resume-section">
+                <h2>Trajetória Profissional</h2>
+                <div class="linha-decorativa"></div>
+                
+                <!-- Bloco 1: Atual em TI -->
+                <div class="item-conteudo">
+                    <h3>Análise de Sistemas & RPA</h3>
+                    <p class="periodo">2025 - Atual</p>
+                    <p>Criação de portfólio técnico focado em automações backend, manipulação de dados e dashboards de monitoramento.</p>
+                </div>
+                
+                <!-- Bloco 2: Empreendedorismo -->
+                <div class="item-conteudo">
+                    <h3>Gestão e Confeitaria MEI</h3>
+                    <p class="periodo">14 Anos de Vivência</p>
+                    <p>Liderança criativa, gestão financeira e de estoque, resiliência, adaptação de processos e foco absoluto no encantamento de clientes.</p>
+                </div>
+
+                <!-- Bloco 3: Saúde (NOVO!) -->
+                <div class="item-conteudo">
+                    <h3>Técnica de Enfermagem</h3>
+                    <p class="periodo">13 Anos de Vivência</p>
+                    <p>Atuação no setor de saúde com foco em gerenciamento de rotinas, trabalho em equipe sob pressão, resolutividade e conformidade com protocolos rígidos.</p>
+                </div>
+            </section>
+
+            <!-- Coluna: Formação Acadêmica -->
+            <section class="resume-section">
+                <h2>Formação Acadêmica</h2>
+                <div class="linha-decorativa"></div>
+                
+                <div class="item-conteudo">
+                    <h3>Sistemas de Informação (ADS)</h3>
+                    <p class="institution">Estácio de Vila Velha</p>
+                    <p class="periodo">Em andamento</p>
+                </div>
+                
+                <div class="item-conteudo">
+                    <h3>AWS Cloud Practitioner</h3>
+                    <p class="institution">Jornada Tech Santander</p>
+                    <p class="periodo">Certificação em Nuvem</p>
+                </div>
+            </section>
+
+        </div> 
+
+        <!-- SEÇÃO: FORMULÁRIO DE CONTATO & SEGUNDO AVATAR -->
+        <section class="contact-section">
+            <div class="contato-wrapper-flex">
+                
+                <!-- Lado Esquerdo: Formulário -->
+                <div class="contato-coluna-esquerda">
+                    <h2>Entrar em Contato</h2>
+                    <form id="form-sistema" class="contact-form">
+                        <div class="input-row">
+                            <input type="text" id="txt-nome" name="nome" required placeholder="SEU NOME">
+                            <input type="email" id="txt-email" name="email" required placeholder="SEU E-MAIL">
+                        </div>
+                        <div class="input-container">
+                            <textarea id="txt-mensagem" name="mensagem" rows="3" required placeholder="SUA MENSAGEM (MÍNIMO 10 CARACTERES)"></textarea>
+                        </div>
+                        <button type="submit" class="btn-send">Enviar Mensagem</button>
+                    </form>
+                    <div id="feedback-painel" class="hidden"></div>
+                </div>
+
+                <!-- Lado Direito: Segunda Imagem Blob -->
+                <div class="contato-coluna-direita">
+                    <div class="contato-avatar-container">
+                        <img src="imagem/avatar1.png" alt="Debora Maestrini" class="contato-avatar-img" onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=DeboraTech'">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Arquivo JavaScript Externo -->
     <script src="script.js"></script>
 </body>
 </html>

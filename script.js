@@ -1,114 +1,136 @@
 /* ==========================================================================
-   INTERATIVIDADE E DINAMISMO - PORTFÓLIO PROFISSIONAL
+   1. INICIALIZAÇÃO DE GATILHOS (DOM LOADED)
    ========================================================================== */
-
-// Garante que o script só vai rodar após todo o HTML ser carregado pelo navegador
-document.addEventListener("DOMContentLoaded", () => {
-  // Executa as funções principais do sistema
-  inicializarFiltroCompetencias();
-  inicializarValidacaoFormulario();
+document.addEventListener('DOMContentLoaded', () => {
+    inicializarValidacaoFormulario();
+    iniciarEfeitoMaquinaDeEscrever(); // Inicializa o terminal de digitação
 });
 
 /* ==========================================================================
-   1. SISTEMA DE FILTRAGEM DE COMPETÊNCIAS (FRONT-END AVANÇADO)
+   2. LÓGICA FRONT-END - VALIDAÇÃO E REQUISIÇÃO ASSÍNCRONA (FETCH AJAX)
    ========================================================================== */
-function inicializarFiltroCompetencias() {
-  // Seleciona todos os botões de filtro e todas as tags de habilidades (pills)
-  const botoesFiltro = document.querySelectorAll(".btn-filter");
-  const tagsHabilidades = document.querySelectorAll(".skill-pill");
+function inicializarValidacaoFormulario() {
+    const formulario = document.getElementById('form-sistema');
+    const painelFeedback = document.getElementById('feedback-painel');
 
-  botoesFiltro.forEach((botao) => {
-    botao.addEventListener("click", () => {
-      // 1. Remove a classe 'active' do botão anterior e adiciona no botão clicado
-      document.querySelector(".btn-filter.active").classList.remove("active");
-      botao.classList.add("active");
+    if (!formulario || !painelFeedback) return;
 
-      // 2. Captura a categoria alvo do botão clicado (all, backend, frontend, infra)
-      const categoriaAlvo = botao.getAttribute("data-target");
+    formulario.addEventListener('submit', (evento) => {
+        evento.preventDefault(); 
 
-      // 3. Percorre cada tag de habilidade para ocultar ou mostrar
-      tagsHabilidades.forEach((tag) => {
-        const categoriaTag = tag.getAttribute("data-cat");
+        const nome = document.getElementById('txt-nome').value.trim();
+        const email = document.getElementById('txt-email').value.trim();
+        const mensagem = document.getElementById('txt-mensagem').value.trim();
 
-        // Se for 'all' ou corresponder à categoria, mostra a tag. Caso contrário, oculta.
-        if (categoriaAlvo === "all" || categoriaAlvo === categoriaTag) {
-          tag.classList.remove("hidden");
-          // Efeito visual sutil de entrada
-          tag.style.opacity = "0";
-          setTimeout(() => {
-            tag.style.opacity = "1";
-          }, 50);
-        } else {
-          tag.classList.add("hidden");
+        // Reseta o painel de feedback antes de validar de novo
+        painelFeedback.className = 'hidden';
+        painelFeedback.innerHTML = '';
+
+        // Validações Semânticas
+        if (nome.length < 3) {
+            exibirFeedback('Por favor, insira o seu nome completo (mínimo 3 caracteres).', 'erro');
+            return;
         }
-      });
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            exibirFeedback('Por favor, introduza um endereço de e-mail válido.', 'erro');
+            return;
+        }
+
+        if (mensagem.length < 10) {
+            exibirFeedback('A sua mensagem deve conter uma descrição detalhada (mínimo 10 caracteres).', 'erro');
+            return;
+        }
+
+        exibirFeedback('🚀 Enviando sua mensagem... Por favor, aguarde.', 'sucesso');
+
+        // Captura os dados para envio assíncrono para o PHP
+        const dadosFormulario = new FormData(formulario);
+
+        fetch('contato.php', {
+            method: 'POST',
+            body: dadosFormulario
+        })
+        .then(respostaServidor => {
+            if (!respostaServidor.ok) {
+                throw new Error('Falha na resposta do servidor.');
+            }
+            return respostaServidor.json();
+        })
+        .then(dados => {
+            if (dados.sucesso) {
+                painelFeedback.className = 'sucesso';
+                painelFeedback.textContent = dados.mensagem;
+                formulario.reset(); // Limpa as caixas preenchidas se der certo
+            } else {
+                painelFeedback.className = 'erro';
+                painelFeedback.textContent = dados.mensagem;
+            }
+        })
+        .catch(erro => {
+            exibirFeedback('❌ Falha de comunicação com o servidor PHP. Certifique-se de que o XAMPP ou servidor local está ativo.', 'erro');
+            console.error('Erro na requisição Fetch:', erro);
+        });
     });
-  });
+
+    // Função interna auxiliar para exibir mensagens na tela
+    function exibirFeedback(texto, tipo) {
+        painelFeedback.textContent = texto;
+        painelFeedback.className = tipo;
+    }
 }
 
 /* ==========================================================================
-   2. VALIDAÇÃO LOCAL DO FORMULÁRIO ANTES DO ENVIO (BACKEND READY)
+   3. MOTOR DO EFEITO MÁQUINA DE ESCREVER (LOOP CONTÍNUO MULTI-TEXTO)
    ========================================================================== */
-function inicializarValidacaoFormulario() {
-  const formulario = document.getElementById("form-sistema");
-  const painelFeedback = document.getElementById("feedback-painel");
+function iniciarEfeitoMaquinaDeEscrever() {
+    const elemento = document.getElementById('efeito-digitar');
+    if (!elemento) return;
 
-  // Intercepta o evento de submissão (envio) do formulário
-  formulario.addEventListener("submit", (evento) => {
-    // Captura os valores digitados e remove espaços em branco extras (.trim)
-    const nome = document.getElementById("txt-nome").value.trim();
-    const email = document.getElementById("txt-email").value.trim();
-    const mensagem = document.getElementById("txt-mensagem").value.trim();
+    // Seus títulos estratégicos atualizados!
+    const textos = [
+        "Análise de Sistemas",
+        "Desenvolvedora Back-end & Front-end",
+        "Automação Python & RPA"
+    ];
 
-    // Limpa o painel de feedback antes de uma nova validação
-    painelFeedback.className = "hidden";
-    painelFeedback.innerHTML = "";
+    let indiceDoVetor = 0;   // Controla qual frase está sendo digitada
+    let indiceDaLetra = 0;   // Controla a letra atual da frase
+    let apagando = false;    // Estado se está digitando ou deletando a palavra
 
-    // Validação simples: verifica se os campos não são apenas espaços vazios
-    if (nome.length < 3) {
-      exibirFeedback(
-        "Por favor, insira o seu nome completo (mínimo 3 caracteres).",
-        "erro",
-      );
-      evento.preventDefault(); // Impede o envio para o PHP se houver erro
-      return;
+    function gerenciarTerminal() {
+        const fraseAtual = textos[indiceDoVetor];
+
+        if (!apagando) {
+            // EFEITO DIGITANDO: Vai adicionando letra por letra
+            elemento.textContent = fraseAtual.substring(0, indiceDaLetra + 1);
+            indiceDaLetra++;
+
+            // Se terminou de digitar a frase inteira, espera e muda para o modo apagar
+            if (indiceDaLetra === fraseAtual.length) {
+                apagando = true;
+                setTimeout(gerenciarTerminal, 2000); // Fica parada exibindo a frase por 2 segundos
+                return;
+            }
+            setTimeout(gerenciarTerminal, 80); // Velocidade da digitação (80ms por letra)
+            
+        } else {
+            // EFEITO APAGANDO: Vai removendo letra por letra de trás para frente
+            elemento.textContent = fraseAtual.substring(0, indiceDaLetra - 1);
+            indiceDaLetra--;
+
+            // Se apagou tudo, passa para a próxima palavra do vetor
+            if (indiceDaLetra === 0) {
+                apagando = false;
+                indiceDoVetor = (indiceDoVetor + 1) % textos.length; // Ciclo infinito pelas 3 frases
+                setTimeout(gerenciarTerminal, 400); // Pausa de estabilização rápida antes de começar a digitar a outra
+                return;
+            }
+            setTimeout(gerenciarTerminal, 40); // Velocidade ao apagar (mais rápido que digitar)
+        }
     }
 
-    if (!validarEmailEstrutura(email)) {
-      exibirFeedback(
-        "Por favor, introduza um endereço de e-mail válido.",
-        "erro",
-      );
-      evento.preventDefault();
-      return;
-    }
-
-    if (mensagem.length < 10) {
-      exibirFeedback(
-        "A sua mensagem deve conter pelo menos 10 caracteres para processamento.",
-        "erro",
-      );
-      evento.preventDefault();
-      return;
-    }
-
-    // Se passar em todas as validações, o JavaScript não barra o evento.
-    // O navegador continuará o fluxo natural enviando a requisição POST para o 'contato.php'.
-    exibirFeedback(
-      "A processar a sua requisição... Aguarde resposta do servidor.",
-      "sucesso",
-    );
-  });
-
-  // Função auxiliar para estruturar os alertas na tela de forma limpa
-  function exibirFeedback(texto, tipo) {
-    painelFeedback.textContent = texto;
-    painelFeedback.className = tipo; // Aplica a classe 'sucesso' ou 'erro' configurada no CSS
-  }
-
-  // Função com Expressão Regular (Regex) para validar o formato do e-mail
-  function validarEmailEstrutura(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  }
+    // Inicializa limpando o elemento e dá o pontapé inicial no loop
+    elemento.textContent = "";
+    gerenciarTerminal();
 }
