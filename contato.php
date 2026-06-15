@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Salva localmente na pasta do projeto (Requisito obrigatório da Estácio)
     file_put_contents('mensagens.txt', $blocoTexto, FILE_APPEND | LOCK_EX);
 
-    // 4. DISPARO DE NOTIFICAÇÃO PARA A API DO TELEGRAM (Seu diferencial de nota)
+    // 4. DISPARO DE NOTIFICAÇÃO PARA A API DO TELEGRAM 
     // ⚠️ RECOLE AQUI AS SUAS CREDENCIAIS CASO TENHA APAGADO:
     $telegramToken  = '8447446918:AAHWBMnKR-ybNq3TTs1b0QC3hZ1-0SOnsUk';
     $telegramChatId = '7493420648';
